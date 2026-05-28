@@ -1472,12 +1472,20 @@
       object-fit: contain;
     }
 
+    .footer-logo-crop {
+      width: 220px;
+      height: 140px;
+      overflow: hidden;
+      margin-bottom: 1rem;
+    }
+
     .logo-img-footer-real {
-      height: 72px;
-      width: auto;
+      width: 283px;
+      height: auto;
       display: block;
       object-fit: contain;
-      margin-bottom: 1rem;
+      margin-left: -33px;
+      margin-top: -66px;
     }
 
     @media (max-width: 640px) {
@@ -1485,8 +1493,15 @@
         height: 48px;
       }
 
+      .footer-logo-crop {
+        width: 190px;
+        height: 121px;
+      }
+
       .logo-img-footer-real {
-        height: 64px;
+        width: 245px;
+        margin-left: -29px;
+        margin-top: -57px;
       }
     }
 
@@ -1809,7 +1824,7 @@
   <header>
     <div class="container navbar">
       <a href="index.html" class="logo-link">
-        <img src="img/log1.png" alt="Nurset YAZGÖREN — Expert Bâtiment BTP" class="logo-img-real">
+        <img src="img/log1 .png" alt="Nurset YAZGÖREN — Expert Bâtiment BTP" class="logo-img-real">
       </a>
 
       <ul class="nav-links" id="navLinks">
@@ -2283,7 +2298,9 @@
     <div class="container">
       <div class="footer-top">
                 <div class="footer-brand">
-          <img src="img/log1.png" alt="Nurset YAZGÖREN — Expert Bâtiment BTP" class="logo-img-footer-real">
+          <div class="footer-logo-crop">
+            <img src="img/log1 .png" alt="Nurset YAZGÖREN — Expert Bâtiment BTP" class="logo-img-footer-real">
+          </div>
           <p>Expert agréé, assuré RC Pro, intervenant sur l'Île-de-France et les régions limitrophes depuis plus de 15 ans.</p>
         </div>
 
