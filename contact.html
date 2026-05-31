@@ -10,22 +10,133 @@
   <meta name="geo.region" content="FR-60 FR-95 FR-80">
   <meta name="geo.placename" content="Oise, Val-d'Oise, Somme">
   <link rel="canonical" href="https://www.yazgoren-expert.fr/">
+  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Contact — Nurset YAZGOREN Expert Bâtiment">
-  <meta property="og:description" content="Contactez Nurset YAZGOREN, expert bâtiment indépendant dans l'Oise (60), le Val-d'Oise (95) et la Somme (80). Devis gratuit, réponse sous 24h.">
+  <meta property="og:description" content="Contactez Nurset YAZGOREN, expert bâtiment indépendant dans l'Oise (60), le Val-d'Oise (95) et la Somme (80). Devis gratuit, réponse sous 24h. Beauvais, Cergy, Amiens et alentours.">
   <meta property="og:locale" content="fr_FR">
   <meta property="og:site_name" content="Nurset YAZGOREN — Expert Bâtiment">
+  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Contact — Nurset YAZGOREN Expert Bâtiment">
-  <meta name="twitter:description" content="Contactez Nurset YAZGOREN, expert bâtiment indépendant dans l'Oise (60), le Val-d'Oise (95) et la Somme (80). Devis gratuit, réponse sous 24h.">
+  <meta name="twitter:description" content="Contactez Nurset YAZGOREN, expert bâtiment indépendant dans l'Oise (60), le Val-d'Oise (95) et la Somme (80). Devis gratuit, réponse sous 24h. Beauvais, Cergy, Amiens et alentours.">
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
-  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="css/style.css">
-  <link rel="stylesheet" href="css/contact.css">
+  <style>
+    :root {
+      --navy: #162538;
+      --navy-mid: #162538;
+      --navy-light: #162538;
+      --gold: #C9963C;
+      --gold-light: #E0B86A;
+      --gold-pale: #F2EBD9;
+      --stone: #F8F5F0;
+      --white: #FFFFFF;
+      --text: #3A3A3A;
+      --text-muted: #6B7A8A;
+      --border: #EDEAE3;
+      --shadow-sm: 0 1px 3px rgba(22,37,56,0.06);
+      --shadow-md: 0 4px 16px rgba(22,37,56,0.08), 0 2px 6px rgba(22,37,56,0.05);
+      --shadow-lg: 0 20px 48px rgba(22,37,56,0.10), 0 8px 20px rgba(22,37,56,0.06);
+      --shadow-gold: 0 8px 32px rgba(201,150,60,0.18);
+    }
+    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
+    html { scroll-behavior: smooth; }
+    body { font-family: 'Inter', sans-serif; background: var(--stone); color: var(--text); line-height: 1.65; overflow-x: hidden; -webkit-font-smoothing: antialiased; letter-spacing: -0.01em; }
+    h1,h2,h3,h4 { font-family: 'Cormorant Garamond', serif; line-height: 1.15; }
+    img { display: block; width: 100%; }
+    .container { width: min(1180px, 92%); margin: auto; }
+    section { padding: 7rem 0; }
+    .section-label { display: inline-flex; align-items: center; gap: .75rem; margin-bottom: 1rem; }
+    .section-label .line { width: 30px; height: 1px; background: var(--gold); }
+    .section-label span { font-size: .75rem; letter-spacing: .24em; color: var(--gold); text-transform: uppercase; font-weight: 600; }
+    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
+    .fade-up.visible { opacity: 1; transform: translateY(0); }
+
+    header { position: fixed; top:0; left:0; width:100%; z-index:1000; background:rgba(22,37,56,0.97); backdrop-filter:blur(16px); border-bottom:1px solid rgba(201,150,60,0.15); transition:all .3s ease; }
+    .navbar { display:flex; justify-content:space-between; align-items:center; padding:1.1rem 0; }
+    .logo-link { text-decoration:none; display:flex; align-items:center; }
+    .logo-svg { height:52px; width:auto; }
+    .logo-svg-footer { height:64px; width:auto; margin-bottom:1rem; }
+    .nav-links { display:flex; gap:2.5rem; list-style:none; }
+    .nav-links a { text-decoration:none; color:rgba(255,255,255,0.78); font-size:.88rem; font-weight:500; letter-spacing:.04em; transition:color .25s; }
+    .nav-links a:hover { color:var(--gold-light); }
+    .btn-nav { display:inline-flex; align-items:center; gap:.5rem; padding:.75rem 1.5rem; background:var(--gold); color:var(--navy); font-family:'Inter',sans-serif; font-size:.85rem; font-weight:600; border:none; border-radius:6px; cursor:pointer; text-decoration:none; letter-spacing:.04em; transition:all .25s ease; }
+    .btn-nav:hover { background:var(--gold-light); transform:translateY(-1px); box-shadow:0 6px 20px rgba(201,150,60,.35); }
+    .menu-toggle { display:none; background:none; border:none; cursor:pointer; flex-direction:column; gap:5px; }
+    .menu-toggle span { display:block; width:24px; height:2px; background:var(--white); transition:all .3s; }
+    footer { background:var(--navy); padding:5rem 0 2.5rem; border-top:2px solid var(--gold); }
+    .footer-top { display:grid; grid-template-columns:1.5fr 1fr 1fr; gap:3rem; margin-bottom:3rem; }
+    .footer-brand p { margin-top:1rem; font-size:.86rem; color:rgba(255,255,255,0.45); max-width:280px; line-height:1.7; }
+    .footer-col h2 { font-family:'Inter',sans-serif; font-size:.75rem; font-weight:600; color:var(--gold); text-transform:uppercase; letter-spacing:.14em; margin-bottom:1.2rem; }
+    .footer-col ul { list-style:none; display:flex; flex-direction:column; gap:.6rem; }
+    .footer-col ul a { font-size:.87rem; color:rgba(255,255,255,0.5); text-decoration:none; transition:color .2s; }
+    .footer-col ul a:hover { color:rgba(255,255,255,0.9); }
+    .footer-bottom { padding-top:2rem; border-top:1px solid rgba(255,255,255,.08); display:flex; justify-content:space-between; align-items:center; }
+    .footer-bottom p { font-size:.8rem; color:rgba(255,255,255,.35); }
+    @media(max-width:860px){ .footer-top{grid-template-columns:1fr;} .footer-bottom{flex-direction:column;gap:.5rem;text-align:center;} }
+    @media(max-width:640px){ .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;width:100%;background:var(--navy);padding:1.5rem;gap:1.2rem;} .nav-links.open{display:flex;} .menu-toggle{display:flex;} .btn-nav.desktop{display:none;} }
+
+    .page-hero {
+      padding: 10rem 0 5rem;
+      background: var(--navy);
+      position: relative;
+      overflow: hidden;
+    }
+    .page-hero::before {
+      content:''; position:absolute; inset:0;
+      background: radial-gradient(ellipse at 80% 50%, rgba(201,150,60,0.07) 0%, transparent 60%);
+    }
+    .page-hero-inner { position:relative; z-index:1; }
+    .page-eyebrow { display:inline-flex; align-items:center; gap:.75rem; margin-bottom:1.5rem; }
+    .page-eyebrow .line { width:30px; height:1px; background:var(--gold); }
+    .page-eyebrow span { font-size:.72rem; letter-spacing:.3em; color:var(--gold); text-transform:uppercase; font-weight:500; }
+    .page-hero h1 { font-size:clamp(2.8rem,5vw,5rem); color:var(--white); font-weight:300; font-style:italic; letter-spacing:-.02em; }
+    .page-hero p { color:rgba(255,255,255,0.6); font-size:1.05rem; max-width:500px; margin-top:1.2rem; font-weight:300; }
+
+    .contact-main { background:var(--stone); }
+    .contact-main-grid { display:grid; grid-template-columns:1fr 1.4fr; gap:5rem; align-items:start; }
+
+    .contact-sidebar h2 { font-size:2rem; color:var(--navy); margin-bottom:.5rem; font-weight:400; }
+    .contact-sidebar > p { color:var(--text-muted); font-size:.95rem; margin-bottom:2.5rem; line-height:1.75; }
+
+    .contact-detail { display:flex; align-items:flex-start; gap:1rem; margin-bottom:1.5rem; }
+    .cd-icon { width:44px; height:44px; min-width:44px; border-radius:50%; background:var(--navy); display:flex; align-items:center; justify-content:center; font-size:1.1rem; }
+    .cd-text strong { display:block; font-size:.78rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:.08em; margin-bottom:.2rem; }
+    .cd-text a, .cd-text span { color:var(--navy); font-weight:600; text-decoration:none; font-size:.98rem; }
+    .cd-text a:hover { color:var(--gold); }
+
+    .urgence-box { margin-top:2.5rem; padding:1.5rem; background:var(--navy); border-radius:2px; border-left:3px solid var(--gold); }
+    .urgence-box p { font-size:.88rem; color:rgba(255,255,255,.7); line-height:1.7; }
+    .urgence-box strong { color:var(--gold-light); }
+
+    .contact-form-box { background:var(--white); padding:3.5rem; border-radius:2px; box-shadow:var(--shadow-lg); border:1px solid var(--border); border-top:3px solid var(--gold); }
+    .contact-form-box h3 { font-size:1.9rem; color:var(--navy); margin-bottom:.4rem; font-weight:400; }
+    .contact-form-box .subtitle { color:var(--text-muted); font-size:.87rem; margin-bottom:2rem; }
+    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
+    .form-field { margin-bottom:1rem; display:flex; flex-direction:column; gap:.4rem; }
+    .form-field label { font-size:.76rem; font-weight:600; color:var(--navy); letter-spacing:.06em; text-transform:uppercase; }
+    .form-field input, .form-field select, .form-field textarea { padding:.9rem 1rem; border:1px solid var(--border); border-radius:2px; font-family:'Inter',sans-serif; font-size:.93rem; color:var(--text); background:var(--stone); outline:none; transition:border-color .25s; width:100%; }
+    .form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color:var(--gold); background:var(--white); }
+    .form-field textarea { resize:vertical; min-height:130px; }
+    .btn-submit { width:100%; padding:1.1rem; background:var(--navy); color:var(--white); border:none; border-radius:2px; font-family:'Inter',sans-serif; font-size:.93rem; font-weight:600; cursor:pointer; letter-spacing:.06em; text-transform:uppercase; transition:all .25s; display:flex; align-items:center; justify-content:center; gap:.5rem; }
+    .btn-submit:hover { background:var(--gold); color:var(--navy); box-shadow:var(--shadow-gold); transform:translateY(-1px); }
+
+    @media(max-width:860px){ .contact-main-grid{grid-template-columns:1fr;} .form-row{grid-template-columns:1fr;} }
+
+    .logo-img-real { height: 56px; width: auto; display: block; object-fit: contain; }
+    .footer-logo-crop { width:220px; height:140px; overflow:hidden; margin-bottom:1rem; }
+    .logo-img-footer-real { width:283px; height:auto; display:block; object-fit:contain; margin-left:-33px; margin-top:-66px; }
+
+    @media(max-width:640px){
+      .logo-img-real { height:48px; }
+      .footer-logo-crop { width:190px; height:121px; }
+      .logo-img-footer-real { width:245px; margin-left:-29px; margin-top:-57px; }
+    }
+
+  </style>
 </head>
 <body>
   <header>
@@ -51,128 +162,89 @@
     <div class="container page-hero-inner fade-up visible">
       <div class="page-eyebrow"><div class="line"></div><span>Contact</span></div>
       <h1>Parlons de<br><em style="color:var(--gold-light);">votre projet</em></h1>
-      <p>Un doute, un sinistre, un achat immobilier à sécuriser ? Contactez-moi pour un premier échange gratuit. Je vous réponds sous 2h.</p>
+      <p>Un doute, un sinistre, un achat immobilier à sécuriser ? Contactez-moi pour un premier échange gratuit. Je vous réponds sous 24h.</p>
     </div>
   </section>
 
-  <section class="contact-main-section">
+  <section class="contact-main">
     <div class="container">
       <div class="contact-main-grid">
-
-        <!-- ── COLONNE INFO ── -->
-        <div class="contact-info-col fade-up">
-          <div class="section-label">
-            <div class="line"></div>
-            <span>Coordonnées</span>
-          </div>
+        <div class="contact-sidebar fade-up">
           <h2>Coordonnées directes</h2>
-         
+          <p>Je préfère le contact direct. Appelez-moi ou écrivez-moi — vous parlez à Nurset, pas à un secrétariat.</p>
 
-          <div class="contact-details">
-            <div class="contact-detail">
-              <div class="cd-icon">📞</div>
-              <div class="cd-text">
-                <strong>Téléphone</strong>
-                <a href="tel:+33600000000">+33 6 00 00 00 00</a>
-              </div>
+          <div class="contact-detail">
+            <div class="cd-icon">📞</div>
+            <div class="cd-text">
+              <strong>Téléphone</strong>
+              <a href="tel:+33600000000">+33 6 00 00 00 00</a>
             </div>
-            <div class="contact-detail">
-              <div class="cd-icon">✉️</div>
-              <div class="cd-text">
-                <strong>Email</strong>
-                <a href="mailto:contact@yazgoren-expert.fr">contact@yazgoren-expert.fr</a>
-              </div>
+          </div>
+          <div class="contact-detail">
+            <div class="cd-icon">✉️</div>
+            <div class="cd-text">
+              <strong>Email</strong>
+              <a href="mailto:contact@yazgoren-expert.fr">contact@yazgoren-expert.fr</a>
             </div>
-            <div class="contact-detail">
-              <div class="cd-icon">📍</div>
-              <div class="cd-text">
-                <strong>Zone d'intervention</strong>
-                <span>Oise, Val-d'Oise, Somme & limitrophes</span>
-              </div>
+          </div>
+          <div class="contact-detail">
+            <div class="cd-icon">📍</div>
+            <div class="cd-text">
+              <strong>Zone d'intervention</strong>
+              <span>Île-de-France & régions limitrophes</span>
             </div>
-            <div class="contact-detail">
-              <div class="cd-icon">🕐</div>
-              <div class="cd-text">
-                <strong>Disponibilité</strong>
-                <span>Lun.–Ven. 8h–19h</span>
-              </div>
+          </div>
+          <div class="contact-detail">
+            <div class="cd-icon">🕐</div>
+            <div class="cd-text">
+              <strong>Disponibilité</strong>
+              <span>Lun.–Ven. 8h–19h</span>
             </div>
           </div>
 
           <div class="urgence-box">
             <p><strong>🚨 Urgence sinistre ?</strong><br>
-             En cas de sinistre grave (effondrement, fissures soudaines, inondation), je suis joignable <strong>7j/7</strong> pour les situations d'urgence. N'attendez pas.</p>
-          
+            En cas de sinistre grave (effondrement, fissures soudaines, inondation), je suis joignable <strong>7j/7</strong> pour les situations d'urgence. N'attendez pas.</p>
           </div>
         </div>
-        
 
-        <!-- ── FORMULAIRE ── -->
         <div class="contact-form-box fade-up">
           <h3>Demande de rappel</h3>
           <p class="subtitle">Gratuit · Sans engagement · Réponse sous 24h</p>
 
-          <form id="contactForm" action="send-mail.php" method="POST" novalidate>
-            <div class="form-row">
-              <div class="form-field"><label>Prénom</label><input type="text" name="prenom" placeholder="Jean" required></div>
-              <div class="form-field"><label>Nom</label><input type="text" name="nom" placeholder="Dupont" required></div>
-            </div>
-            <div class="form-row">
-              <div class="form-field"><label>Téléphone</label><input type="tel" name="telephone" placeholder="+33 6 00 00 00 00"></div>
-              <div class="form-field"><label>Email</label><input type="email" name="email" placeholder="jean@email.fr"></div>
-            </div>
-            <div class="form-field">
-              <label>Type d'expertise</label>
-              <select name="type_expertise" required>
-                <option value="">Sélectionnez...</option>
-                <option>Malfaçons / Désordres</option>
-                <option>Fissures / Pathologies</option>
-                <option>Réception de chantier / VEFA</option>
-                <option>Sinistre / Contre-expertise</option>
-                <option>Avant achat immobilier</option>
-                <option>Suivi de travaux</option>
-                <option>Expertise judiciaire</option>
-                <option>Autre</option>
-              </select>
-            </div>
-            <div class="form-row">
-              <div class="form-field"><label>Adresse du bien</label><input type="text" name="adresse_bien" placeholder="12 rue des Lilas, 75015 Paris"></div>
-              <div class="form-field"><label>Superficie estimée</label><input type="text" name="superficie" placeholder="ex: 85 m²"></div>
-            </div>
-            <div class="form-field">
-              <label>Description du problème</label>
-              <textarea name="description" placeholder="Décrivez brièvement votre situation, les désordres constatés, le contexte..." required></textarea>
-            </div>
-
-            <!-- Cloudflare Turnstile — décommentez quand vous avez votre clé publique
-            <div class="cf-turnstile" data-sitekey="VOTRE_CLE_PUBLIQUE_TURNSTILE_ICI" style="margin:1rem 0;"></div>
-            -->
-            <!-- Champ caché temporaire pour permettre l'envoi sans Turnstile -->
-            <input type="hidden" name="cf-turnstile-response" value="TURNSTILE_DISABLED">
-
-            <button type="submit" class="btn-submit" id="btnSubmit">📩 Envoyer ma demande</button>
-            <div class="form-feedback" id="formFeedback"></div>
-          </form>
+          <div class="form-row">
+            <div class="form-field"><label>Prénom</label><input type="text" placeholder="Jean"></div>
+            <div class="form-field"><label>Nom</label><input type="text" placeholder="Dupont"></div>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label>Téléphone</label><input type="tel" placeholder="+33 6 00 00 00 00"></div>
+            <div class="form-field"><label>Email</label><input type="email" placeholder="jean@email.fr"></div>
+          </div>
+          <div class="form-field">
+            <label>Type d'expertise</label>
+            <select>
+              <option value="">Sélectionnez...</option>
+              <option>Malfaçons / Désordres</option>
+              <option>Fissures / Pathologies</option>
+              <option>Réception de chantier / VEFA</option>
+              <option>Sinistre / Contre-expertise</option>
+              <option>Avant achat immobilier</option>
+              <option>Suivi de travaux</option>
+              <option>Expertise judiciaire</option>
+              <option>Autre</option>
+            </select>
+          </div>
+          <div class="form-row">
+            <div class="form-field"><label>Adresse du bien</label><input type="text" placeholder="12 rue des Lilas, 75015 Paris"></div>
+            <div class="form-field"><label>Superficie estimée</label><input type="text" placeholder="ex: 85 m²"></div>
+          </div>
+          <div class="form-field">
+            <label>Description du problème</label>
+            <textarea placeholder="Décrivez brièvement votre situation, les désordres constatés, le contexte..."></textarea>
+          </div>
+          <button class="btn-submit">📩 Envoyer ma demande</button>
         </div>
-
       </div>
-    </div>
-  </section>
-
-  <!-- ─── CARTE ZONE D'INTERVENTION ─── -->
-  <section class="map-section">
-    <div class="container">
-      <div style="text-align:center;margin-bottom:2rem;">
-        <div class="section-label" style="justify-content:center;">
-          <div class="line"></div>
-          <span>Zone d'intervention</span>
-        </div>
-        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.8rem);color:var(--navy);font-weight:400;margin-top:.5rem;">
-          Où j'interviens
-        </h2>
-        <p style="color:var(--text-muted);font-size:.92rem;margin-top:.5rem;">Oise (60) · Val-d'Oise (95) · Somme (80) — et départements limitrophes sur demande</p>
-      </div>
-      <div id="map" style="width:100%;height:340px;min-height:340px;display:block;"></div>
     </div>
   </section>
 
@@ -184,25 +256,14 @@
             <img src="img/log1 .png" alt="Nurset YAZGÖREN" class="logo-img-footer-real">
           </div>
           <p>Expert agréé, assuré RC Pro, intervenant dans l'Oise,Somme,Val-d'Oise et les régions limitrophes depuis plus de 15 ans.</p>
-          <div class="footer-social">
-            <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047v-2.66c0-3.025 1.791-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.887v2.264h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
-            </a>
-            <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
-            </a>
-            <a href="https://www.tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok">
-              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
-            </a>
-          </div>
         </div>
         <div class="footer-col">
           <h2>Services</h2>
           <ul>
-            <li><a href="index.html#services">Malfaçons &amp; Désordres</a></li>
-            <li><a href="index.html#services">Fissures &amp; Pathologies</a></li>
+            <li><a href="index.html#services">Malfaçons & Désordres</a></li>
+            <li><a href="index.html#services">Fissures & Pathologies</a></li>
             <li><a href="index.html#services">Réception de chantier</a></li>
-            <li><a href="index.html#services">Sinistres &amp; Assurances</a></li>
+            <li><a href="index.html#services">Sinistres & Assurances</a></li>
             <li><a href="index.html#services">Avant achat immobilier</a></li>
           </ul>
         </div>
@@ -218,24 +279,17 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2025 Nurset YAZGÖREN — Expert Bâtiment. Tous droits réservés.</p>
+        <p>© 2026 Nurset YAZGOREN — Expert Bâtiment Indépendant. Tous droits réservés. · <a href="mentions-legales.html" style="color:rgba(255,255,255,0.4);text-decoration:none;">Mentions légales</a></p>
         <p>RC Pro assurée · Expert agréé Cour d'Appel · SIRET : XXX XXX XXX XXXXX</p>
       </div>
     </div>
   </footer>
-
-  <div class="fab-mobile-bar">
-    <a href="tel:+33600000000" class="fab-mobile-call">📞 Appeler</a>
-    <a href="https://wa.me/33600000000" class="fab-mobile-whatsapp">💬 WhatsApp</a>
-  </div>
-
   <script>
-    // ─── MENU MOBILE ─────────────────────────────────────────────
-    const menuToggle = document.getElementById('menuToggle');
-    const navLinks   = document.getElementById('navLinks');
+        const menuToggle = document.getElementById('menuToggle');
+    const navLinks = document.getElementById('navLinks');
 
     if (menuToggle && navLinks) {
-      menuToggle.addEventListener('click', function(e) {
+      menuToggle.addEventListener('click', (e) => {
         e.stopPropagation();
         navLinks.classList.toggle('open');
         const spans = menuToggle.querySelectorAll('span');
@@ -249,125 +303,49 @@
           spans[2].style.cssText = '';
         }
       });
-      navLinks.querySelectorAll('a').forEach(function(a) {
-        a.addEventListener('click', function() {
+      navLinks.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
           navLinks.classList.remove('open');
-          menuToggle.querySelectorAll('span').forEach(function(s) { s.style.cssText = ''; });
+          menuToggle.querySelectorAll('span').forEach(s => s.style.cssText = '');
         });
       });
-      document.addEventListener('click', function(e) {
+      document.addEventListener('click', (e) => {
         if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
           navLinks.classList.remove('open');
-          menuToggle.querySelectorAll('span').forEach(function(s) { s.style.cssText = ''; });
+          menuToggle.querySelectorAll('span').forEach(s => s.style.cssText = '');
         }
       });
-    }
+    } else {
+          spans[0].style.cssText = '';
+          spans[1].style.cssText = '';
+          spans[2].style.cssText = '';
+        }
+      
 
-    // ─── FADE IN ──────────────────────────────────────────────────
-    const observer = new IntersectionObserver(function(entries) {
-      entries.forEach(function(e) {
-        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
+      // Fermer au clic sur un lien
+      navLinks.querySelectorAll('a').forEach(a => {
+        a.addEventListener('click', () => {
+          navLinks.classList.remove('open');
+          menuToggle.querySelectorAll('span').forEach(s => s.style.cssText = '');
+        });
       });
-    }, { threshold: 0.1 });
-    document.querySelectorAll('.fade-up').forEach(function(el) { observer.observe(el); });
 
-    // ─── HEADER SCROLL ───────────────────────────────────────────
+      // Fermer au clic en dehors
+      document.addEventListener('click', (e) => {
+        if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
+          navLinks.classList.remove('open');
+          menuToggle.querySelectorAll('span').forEach(s => s.style.cssText = '');
+        }
+      });
+    
+    const observer = new IntersectionObserver(entries => {
+      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); } });
+    }, { threshold: 0.1 });
+    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
     const header = document.querySelector('header');
-    window.addEventListener('scroll', function() {
+    window.addEventListener('scroll', () => {
       header.style.background = window.scrollY > 60 ? 'rgba(22,37,56,0.99)' : 'rgba(22,37,56,0.97)';
     });
-  </script>
-
-  <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
-  <script>
-    // ─── CARTE LEAFLET ───────────────────────────────────────────
-    window.addEventListener('load', function() {
-      var mapEl = document.getElementById('map');
-      if (!mapEl) { console.error('[Carte] #map introuvable dans le DOM'); return; }
-      if (typeof L === 'undefined') { console.error('[Carte] Leaflet non chargé'); return; }
-
-      mapEl.style.height    = '340px';
-      mapEl.style.minHeight = '340px';
-      mapEl.style.display   = 'block';
-
-      var map = L.map('map', { center: [49.35, 2.45], zoom: 8, scrollWheelZoom: false });
-
-      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-        maxZoom: 13
-      }).addTo(map);
-
-      setTimeout(function() { map.invalidateSize(); }, 100);
-      setTimeout(function() { map.invalidateSize(); }, 500);
-      setTimeout(function() { map.invalidateSize(); }, 1200);
-
-      function creerIcone() {
-        return L.divIcon({
-          className: '',
-          iconSize: [30, 30], iconAnchor: [15, 30], popupAnchor: [0, -32],
-          html: '<div style="width:30px;height:30px;background:#162538;border:2.5px solid #C9963C;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 4px 12px rgba(22,37,56,0.35);"></div>'
-        });
-      }
-
-      var villes = [
-        { lat: 49.4303, lng: 2.0818, nom: 'Beauvais',       dept: 'Oise (60)' },
-        { lat: 49.4150, lng: 2.8243, nom: 'Compiègne',      dept: 'Oise (60)' },
-        { lat: 49.2061, lng: 2.5863, nom: 'Senlis',         dept: 'Oise (60)' },
-        { lat: 49.1944, lng: 2.4699, nom: 'Chantilly',      dept: 'Oise (60)' },
-        { lat: 49.2594, lng: 2.4780, nom: 'Creil',          dept: 'Oise (60)' },
-        { lat: 49.0358, lng: 2.0750, nom: 'Cergy-Pontoise', dept: "Val-d'Oise (95)" },
-        { lat: 48.9479, lng: 2.2490, nom: 'Argenteuil',     dept: "Val-d'Oise (95)" },
-        { lat: 49.0518, lng: 2.1003, nom: 'Pontoise',       dept: "Val-d'Oise (95)" },
-        { lat: 48.9961, lng: 2.3806, nom: 'Sarcelles',      dept: "Val-d'Oise (95)" },
-        { lat: 49.8942, lng: 2.2957, nom: 'Amiens',         dept: 'Somme (80)' },
-        { lat: 50.1053, lng: 1.8365, nom: 'Abbeville',      dept: 'Somme (80)' },
-        { lat: 49.9296, lng: 2.9326, nom: 'Péronne',        dept: 'Somme (80)' },
-      ];
-
-      villes.forEach(function(v) {
-        L.marker([v.lat, v.lng], { icon: creerIcone() })
-          .addTo(map)
-          .bindPopup('<strong>' + v.nom + '</strong><br><span style="color:#5A6370">' + v.dept + '</span>');
-      });
-    });
-
-    // ─── FORMULAIRE AJAX ──────────────────────────────────────────
-    var form     = document.getElementById('contactForm');
-    var btn      = document.getElementById('btnSubmit');
-    var feedback = document.getElementById('formFeedback');
-
-    if (form) {
-      form.addEventListener('submit', async function(e) {
-        e.preventDefault();
-        btn.disabled    = true;
-        btn.textContent = '⏳ Envoi en cours…';
-        feedback.style.display = 'none';
-        feedback.className     = 'form-feedback';
-        try {
-          const reponse = await fetch('send-mail.php', { method: 'POST', body: new FormData(form) });
-          const data    = await reponse.json();
-          feedback.style.display = 'block';
-          if (data.success) {
-            feedback.classList.add('success');
-            feedback.textContent = '✅ ' + data.message;
-            form.reset();
-            if (typeof turnstile !== 'undefined') turnstile.reset();
-          } else {
-            feedback.classList.add('error');
-            feedback.textContent = '⚠️ ' + (data.message || 'Une erreur est survenue.');
-            btn.disabled  = false;
-            btn.innerHTML = '📩 Envoyer ma demande';
-          }
-        } catch (err) {
-          feedback.style.display = 'block';
-          feedback.classList.add('error');
-          feedback.textContent = '⚠️ Erreur réseau. Veuillez réessayer ou appeler directement.';
-          btn.disabled  = false;
-          btn.innerHTML = '📩 Envoyer ma demande';
-        }
-      });
-    }
   </script>
 </body>
 </html>
