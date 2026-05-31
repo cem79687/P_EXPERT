@@ -78,4 +78,7 @@
   .newsletter-form { flex-direction: column; width: 100%; }
   .newsletter-form input { width: 100%; }
 }
-@media (max-width: 640px) { .blog-grid { grid-template-columns: 1fr; } }
+@media (max-width: 640px) {
+  .blog-grid { grid-template-columns: 1fr; }
+  .page-hero { padding: 7rem 0 3rem; }
+}

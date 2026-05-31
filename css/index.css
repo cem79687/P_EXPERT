@@ -182,4 +182,8 @@
   .geo-name { font-size: 1rem; margin-bottom: .2rem; }
   .geo-cities { font-size: .78rem; }
 }
+@media (max-width: 640px) {
+  .service-card { padding: 2rem 1.5rem; }
+  .about-img-wrap img { height: 300px; }
+}
 @media (max-width: 480px) { .geo-grid { max-width: 100%; } }

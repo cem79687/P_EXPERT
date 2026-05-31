@@ -31,3 +31,7 @@
 }
 .info-block p { margin: 0; }
 .info-block p + p { margin-top: 0.5rem; }
+
+@media (max-width: 640px) {
+  .page-hero { padding: 7rem 0 3rem; }
+}

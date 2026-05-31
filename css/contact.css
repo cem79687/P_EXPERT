@@ -57,23 +57,29 @@
 .urgence-box {
   background: var(--navy);
   border: 1px solid rgba(201,150,60,0.25);
-  border-left: 4px solid var(--gold);
-  border-radius: 4px;
-  padding: 1.2rem 1.4rem;
-  margin-top: 1.5rem;
+  border-left: 3px solid var(--gold);
+  border-radius: 2px;
+  padding: 1.5rem;
+  margin-top: 2.5rem;
+ 
+ 
+  
 }
 .urgence-box p {
   font-size: 0.9rem;
-  color: var(--white);
+  color: var(--stone);
   line-height: 1.7;
   margin: 0;
+  letter-spacing: -0.02em;
   
+ 
 }
 .urgence-box strong {
   color: var(--gold);
   font-weight: 700;
-  display: block;
+  
   margin-bottom: 0.4rem;
+  letter-spacing: -0.01em;
 }
 
 /* ─── CARTE LEAFLET ─── */
@@ -108,4 +114,5 @@
   .form-row { grid-template-columns: 1fr; }
   #map { height: 260px; min-height: 260px; }
   .contact-main-section { padding: 4rem 0; }
+  .page-hero { padding: 7rem 0 3rem; }
 }
