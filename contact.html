@@ -21,6 +21,10 @@
   <meta name="twitter:title" content="Contact — Nurset YAZGOREN Expert Bâtiment">
   <meta name="twitter:description" content="Contactez Nurset YAZGOREN, expert bâtiment indépendant dans l'Oise (60), le Val-d'Oise (95) et la Somme (80). Devis gratuit, réponse sous 24h. Beauvais, Cergy, Amiens et alentours.">
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+  <!-- Leaflet carte -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
+  <!-- Cloudflare Turnstile -->
+  <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
@@ -126,6 +130,39 @@
 
     @media(max-width:860px){ .contact-main-grid{grid-template-columns:1fr;} .form-row{grid-template-columns:1fr;} }
 
+    /* ─── CARTE LEAFLET ─── */
+    #map {
+      width: 100%;
+      height: 340px;
+      min-height: 340px;
+      border-radius: 2px;
+      border: 1px solid var(--border);
+      margin-top: 2rem;
+      z-index: 1;
+      display: block;
+    }
+    .leaflet-popup-content-wrapper {
+      border-radius: 4px !important;
+      border-top: 3px solid var(--gold) !important;
+      box-shadow: 0 8px 24px rgba(22,37,56,0.15) !important;
+    }
+    .leaflet-popup-content { font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text); }
+    .leaflet-popup-content strong { color: var(--navy); font-size: 0.9rem; }
+
+    /* ─── FEEDBACK FORMULAIRE ─── */
+    .form-feedback {
+      display: none;
+      padding: 1rem 1.2rem;
+      border-radius: 4px;
+      font-size: 0.88rem;
+      font-weight: 500;
+      margin-top: 0.8rem;
+      text-align: center;
+    }
+    .form-feedback.success { background: #ecfdf5; color: #065f46; border: 1px solid #6ee7b7; }
+    .form-feedback.error   { background: #fef2f2; color: #991b1b; border: 1px solid #fca5a5; }
+    .btn-submit:disabled   { opacity: 0.65; cursor: not-allowed; transform: none !important; }
+
     .logo-img-real { height: 56px; width: auto; display: block; object-fit: contain; }
     .footer-logo-crop { width:220px; height:140px; overflow:hidden; margin-bottom:1rem; }
     .logo-img-footer-real { width:283px; height:auto; display:block; object-fit:contain; margin-left:-33px; margin-top:-66px; }
@@ -135,6 +172,13 @@
       .footer-logo-crop { width:190px; height:121px; }
       .logo-img-footer-real { width:245px; margin-left:-29px; margin-top:-57px; }
     }
+
+    /* ─── SOCIAL LINKS ─── */
+    .footer-social { display:flex; gap:.75rem; margin-top:1.4rem; }
+    .footer-social a { width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:1px solid rgba(201,150,60,0.3); background:rgba(255,255,255,0.04); transition:all .25s ease; text-decoration:none; }
+    .footer-social a:hover { background:var(--gold); border-color:var(--gold); transform:translateY(-2px); box-shadow:0 6px 16px rgba(201,150,60,.35); }
+    .footer-social a svg { width:17px; height:17px; fill:rgba(255,255,255,0.55); transition:fill .25s ease; }
+    .footer-social a:hover svg { fill:var(--navy); }
 
   </style>
 </head>
@@ -212,17 +256,18 @@
           <h3>Demande de rappel</h3>
           <p class="subtitle">Gratuit · Sans engagement · Réponse sous 24h</p>
 
+          <form id="contactForm" action="send-mail.php" method="POST" novalidate>
           <div class="form-row">
-            <div class="form-field"><label>Prénom</label><input type="text" placeholder="Jean"></div>
-            <div class="form-field"><label>Nom</label><input type="text" placeholder="Dupont"></div>
+            <div class="form-field"><label>Prénom</label><input type="text" name="prenom" placeholder="Jean" required></div>
+            <div class="form-field"><label>Nom</label><input type="text" name="nom" placeholder="Dupont" required></div>
           </div>
           <div class="form-row">
-            <div class="form-field"><label>Téléphone</label><input type="tel" placeholder="+33 6 00 00 00 00"></div>
-            <div class="form-field"><label>Email</label><input type="email" placeholder="jean@email.fr"></div>
+            <div class="form-field"><label>Téléphone</label><input type="tel" name="telephone" placeholder="+33 6 00 00 00 00"></div>
+            <div class="form-field"><label>Email</label><input type="email" name="email" placeholder="jean@email.fr"></div>
           </div>
           <div class="form-field">
             <label>Type d'expertise</label>
-            <select>
+            <select name="type_expertise" required>
               <option value="">Sélectionnez...</option>
               <option>Malfaçons / Désordres</option>
               <option>Fissures / Pathologies</option>
@@ -235,16 +280,41 @@
             </select>
           </div>
           <div class="form-row">
-            <div class="form-field"><label>Adresse du bien</label><input type="text" placeholder="12 rue des Lilas, 75015 Paris"></div>
-            <div class="form-field"><label>Superficie estimée</label><input type="text" placeholder="ex: 85 m²"></div>
+            <div class="form-field"><label>Adresse du bien</label><input type="text" name="adresse_bien" placeholder="12 rue des Lilas, 75015 Paris"></div>
+            <div class="form-field"><label>Superficie estimée</label><input type="text" name="superficie" placeholder="ex: 85 m²"></div>
           </div>
           <div class="form-field">
             <label>Description du problème</label>
-            <textarea placeholder="Décrivez brièvement votre situation, les désordres constatés, le contexte..."></textarea>
+            <textarea name="description" placeholder="Décrivez brièvement votre situation, les désordres constatés, le contexte..." required></textarea>
           </div>
-          <button class="btn-submit">📩 Envoyer ma demande</button>
+
+          <!-- Cloudflare Turnstile — remplacer data-sitekey par votre clé publique -->
+          <div class="cf-turnstile" data-sitekey="VOTRE_CLE_PUBLIQUE_TURNSTILE_ICI" style="margin:1rem 0;"></div>
+
+          <button type="submit" class="btn-submit" id="btnSubmit">📩 Envoyer ma demande</button>
+          <div class="form-feedback" id="formFeedback"></div>
+          </form>
         </div>
       </div>
+    </div>
+  </section>
+
+  </section>
+
+  <!-- ─── CARTE ZONE D'INTERVENTION ─── -->
+  <section style="background:var(--stone);padding:4rem 0;border-top:1px solid var(--border);">
+    <div class="container">
+      <div style="text-align:center;margin-bottom:2rem;">
+        <div class="section-label" style="justify-content:center;">
+          <div class="line"></div>
+          <span>Zone d'intervention</span>
+        </div>
+        <h2 style="font-family:'Cormorant Garamond',serif;font-size:clamp(1.8rem,3vw,2.8rem);color:var(--navy);font-weight:400;margin-top:.5rem;">
+          Où j'interviens
+        </h2>
+        <p style="color:var(--text-muted);font-size:.92rem;margin-top:.5rem;">Oise (60) · Val-d'Oise (95) · Somme (80) — et départements limitrophes sur demande</p>
+      </div>
+      <div id="map"></div>
     </div>
   </section>
 
@@ -256,6 +326,17 @@
             <img src="img/log1 .png" alt="Nurset YAZGÖREN" class="logo-img-footer-real">
           </div>
           <p>Expert agréé, assuré RC Pro, intervenant dans l'Oise,Somme,Val-d'Oise et les régions limitrophes depuis plus de 15 ans.</p>
+          <div class="footer-social">
+            <a href="https://www.facebook.com/" target="_blank" rel="noopener" aria-label="Facebook">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M24 12.073C24 5.405 18.627 0 12 0S0 5.405 0 12.073C0 18.1 4.388 23.094 10.125 24v-8.437H7.078v-3.49h3.047v-2.66c0-3.025 1.791-4.697 4.533-4.697 1.312 0 2.686.236 2.686.236v2.97h-1.513c-1.491 0-1.956.93-1.956 1.887v2.264h3.328l-.532 3.49h-2.796V24C19.612 23.094 24 18.1 24 12.073z"/></svg>
+            </a>
+            <a href="https://www.instagram.com/" target="_blank" rel="noopener" aria-label="Instagram">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12 2.163c3.204 0 3.584.012 4.85.07 3.252.148 4.771 1.691 4.919 4.919.058 1.265.069 1.645.069 4.849 0 3.205-.012 3.584-.069 4.849-.149 3.225-1.664 4.771-4.919 4.919-1.266.058-1.644.07-4.85.07-3.204 0-3.584-.012-4.849-.07-3.26-.149-4.771-1.699-4.919-4.92-.058-1.265-.07-1.644-.07-4.849 0-3.204.013-3.583.07-4.849.149-3.227 1.664-4.771 4.919-4.919 1.266-.057 1.645-.069 4.849-.069zM12 0C8.741 0 8.333.014 7.053.072 2.695.272.273 2.69.073 7.052.014 8.333 0 8.741 0 12c0 3.259.014 3.668.072 4.948.2 4.358 2.618 6.78 6.98 6.98C8.333 23.986 8.741 24 12 24c3.259 0 3.668-.014 4.948-.072 4.354-.2 6.782-2.618 6.979-6.98.059-1.28.073-1.689.073-4.948 0-3.259-.014-3.667-.072-4.947-.196-4.354-2.617-6.78-6.979-6.98C15.668.014 15.259 0 12 0zm0 5.838a6.162 6.162 0 100 12.324 6.162 6.162 0 000-12.324zM12 16a4 4 0 110-8 4 4 0 010 8zm6.406-11.845a1.44 1.44 0 100 2.881 1.44 1.44 0 000-2.881z"/></svg>
+            </a>
+            <a href="https://www.tiktok.com/" target="_blank" rel="noopener" aria-label="TikTok">
+              <svg viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path d="M12.525.02c1.31-.02 2.61-.01 3.91-.02.08 1.53.63 3.09 1.75 4.17 1.12 1.11 2.7 1.62 4.24 1.79v4.03c-1.44-.05-2.89-.35-4.2-.97-.57-.26-1.1-.59-1.62-.93-.01 2.92.01 5.84-.02 8.75-.08 1.4-.54 2.79-1.35 3.94-1.31 1.92-3.58 3.17-5.91 3.21-1.43.08-2.86-.31-4.08-1.03-2.02-1.19-3.44-3.37-3.65-5.71-.02-.5-.03-1-.01-1.49.18-1.9 1.12-3.72 2.58-4.96 1.66-1.44 3.98-2.13 6.15-1.72.02 1.48-.04 2.96-.04 4.44-.99-.32-2.15-.23-3.02.37-.63.41-1.11 1.04-1.36 1.75-.21.51-.15 1.07-.14 1.61.24 1.64 1.82 3.02 3.5 2.87 1.12-.01 2.19-.66 2.77-1.61.19-.33.4-.67.41-1.06.1-1.79.06-3.57.07-5.36.01-4.03-.01-8.05.02-12.07z"/></svg>
+            </a>
+          </div>
         </div>
         <div class="footer-col">
           <h2>Services</h2>
@@ -346,6 +427,109 @@
     window.addEventListener('scroll', () => {
       header.style.background = window.scrollY > 60 ? 'rgba(22,37,56,0.99)' : 'rgba(22,37,56,0.97)';
     });
+  </script>
+
+  <!-- Leaflet JS -->
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/WLEo=" crossorigin=""></script>
+  <script>
+    // ─── CARTE LEAFLET ───────────────────────────────────────────
+    window.addEventListener('load', function() {
+      const mapEl = document.getElementById('map');
+      if (!mapEl) return;
+
+      const map = L.map('map', {
+        center: [49.35, 2.45],
+        zoom: 8,
+        scrollWheelZoom: false
+      });
+
+      L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+        maxZoom: 13
+      }).addTo(map);
+
+      setTimeout(() => map.invalidateSize(), 300);
+
+      const creerIcone = () => L.divIcon({
+        className: '',
+        iconSize: [30, 30],
+        iconAnchor: [15, 30],
+        popupAnchor: [0, -32],
+        html: `<div style="
+          width:30px; height:30px;
+          background:#162538;
+          border:2.5px solid #C9963C;
+          border-radius:50% 50% 50% 0;
+          transform:rotate(-45deg);
+          box-shadow:0 4px 12px rgba(22,37,56,0.35);
+        "></div>`
+      });
+
+      const villes = [
+        { lat: 49.4303, lng: 2.0818, nom: 'Beauvais',       dept: 'Oise (60)' },
+        { lat: 49.4150, lng: 2.8243, nom: 'Compiègne',      dept: 'Oise (60)' },
+        { lat: 49.2061, lng: 2.5863, nom: 'Senlis',         dept: 'Oise (60)' },
+        { lat: 49.1944, lng: 2.4699, nom: 'Chantilly',      dept: 'Oise (60)' },
+        { lat: 49.2594, lng: 2.4780, nom: 'Creil',          dept: 'Oise (60)' },
+        { lat: 49.0358, lng: 2.0750, nom: 'Cergy-Pontoise', dept: "Val-d'Oise (95)" },
+        { lat: 48.9479, lng: 2.2490, nom: 'Argenteuil',     dept: "Val-d'Oise (95)" },
+        { lat: 49.0518, lng: 2.1003, nom: 'Pontoise',       dept: "Val-d'Oise (95)" },
+        { lat: 48.9961, lng: 2.3806, nom: 'Sarcelles',      dept: "Val-d'Oise (95)" },
+        { lat: 49.8942, lng: 2.2957, nom: 'Amiens',         dept: 'Somme (80)' },
+        { lat: 50.1053, lng: 1.8365, nom: 'Abbeville',      dept: 'Somme (80)' },
+        { lat: 49.9296, lng: 2.9326, nom: 'Péronne',        dept: 'Somme (80)' },
+      ];
+
+      villes.forEach(v => {
+        L.marker([v.lat, v.lng], { icon: creerIcone() })
+          .addTo(map)
+          .bindPopup(`<strong>${v.nom}</strong><br><span style="color:#5A6370">${v.dept}</span>`);
+      });
+    });
+
+    // ─── FORMULAIRE AJAX ──────────────────────────────────────────
+    const form       = document.getElementById('contactForm');
+    const btn        = document.getElementById('btnSubmit');
+    const feedback   = document.getElementById('formFeedback');
+
+    if (form) {
+      form.addEventListener('submit', async (e) => {
+        e.preventDefault();
+
+        btn.disabled = true;
+        btn.textContent = '⏳ Envoi en cours…';
+        feedback.style.display = 'none';
+        feedback.className = 'form-feedback';
+
+        try {
+          const reponse = await fetch('send-mail.php', {
+            method: 'POST',
+            body: new FormData(form),
+          });
+
+          const data = await reponse.json();
+
+          feedback.style.display = 'block';
+          if (data.success) {
+            feedback.classList.add('success');
+            feedback.textContent = '✅ ' + data.message;
+            form.reset();
+            if (typeof turnstile !== 'undefined') turnstile.reset();
+          } else {
+            feedback.classList.add('error');
+            feedback.textContent = '⚠️ ' + (data.message || 'Une erreur est survenue.');
+            btn.disabled = false;
+            btn.innerHTML = '📩 Envoyer ma demande';
+          }
+        } catch (err) {
+          feedback.style.display = 'block';
+          feedback.classList.add('error');
+          feedback.textContent = '⚠️ Erreur réseau. Veuillez réessayer ou appeler directement.';
+          btn.disabled = false;
+          btn.innerHTML = '📩 Envoyer ma demande';
+        }
+      });
+    }
   </script>
 </body>
 </html>
