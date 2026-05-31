@@ -1,0 +1,33 @@
+/* ══════════════════════════════════════════════════════════════
+   mentions-legales.css — Styles spécifiques aux mentions légales
+   ══════════════════════════════════════════════════════════════ */
+
+/* ─── HERO ─── */
+.page-hero { padding: 10rem 0 4rem; background: var(--navy); position: relative; }
+.page-hero::before { content: ''; position: absolute; inset: 0; background: radial-gradient(ellipse at 80% 50%, rgba(201,150,60,0.06) 0%, transparent 60%); }
+.page-hero-inner { position: relative; z-index: 1; }
+.page-eyebrow { display: inline-flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; }
+.page-eyebrow .line { width: 30px; height: 1px; background: var(--gold); }
+.page-eyebrow span { font-size: 0.72rem; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; font-weight: 500; }
+.page-hero h1 { font-size: clamp(2.4rem, 4vw, 4rem); color: var(--white); font-weight: 300; font-style: italic; letter-spacing: -0.02em; }
+
+/* ─── CONTENU MENTIONS ─── */
+.mentions-section { background: var(--white); }
+.mentions-content { max-width: 800px; }
+
+.mentions-content h2 {
+  font-size: 1.6rem; color: var(--navy); font-weight: 500;
+  margin: 3rem 0 1rem; padding-bottom: 0.8rem;
+  border-bottom: 1px solid var(--border);
+}
+.mentions-content h2:first-of-type { margin-top: 0; }
+.mentions-content p { color: var(--text-muted); font-size: 0.96rem; line-height: 1.8; margin-bottom: 1rem; }
+.mentions-content strong { color: var(--navy); font-weight: 600; }
+.mentions-content a { color: var(--gold); }
+
+.info-block {
+  background: var(--stone); border-left: 2px solid var(--gold);
+  padding: 1.5rem 1.8rem; border-radius: 2px; margin: 1.5rem 0;
+}
+.info-block p { margin: 0; }
+.info-block p + p { margin-top: 0.5rem; }

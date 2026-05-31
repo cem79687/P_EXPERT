@@ -10,177 +10,22 @@
   <meta name="geo.region" content="FR-60 FR-95 FR-80">
   <meta name="geo.placename" content="Oise, Val-d'Oise, Somme">
   <link rel="canonical" href="https://www.yazgoren-expert.fr/">
-  <!-- Open Graph -->
   <meta property="og:type" content="website">
   <meta property="og:title" content="Contact — Nurset YAZGOREN Expert Bâtiment">
-  <meta property="og:description" content="Contactez Nurset YAZGOREN, expert bâtiment indépendant dans l'Oise (60), le Val-d'Oise (95) et la Somme (80). Devis gratuit, réponse sous 24h. Beauvais, Cergy, Amiens et alentours.">
+  <meta property="og:description" content="Contactez Nurset YAZGOREN, expert bâtiment indépendant dans l'Oise (60), le Val-d'Oise (95) et la Somme (80). Devis gratuit, réponse sous 24h.">
   <meta property="og:locale" content="fr_FR">
   <meta property="og:site_name" content="Nurset YAZGOREN — Expert Bâtiment">
-  <!-- Twitter Card -->
   <meta name="twitter:card" content="summary">
   <meta name="twitter:title" content="Contact — Nurset YAZGOREN Expert Bâtiment">
-  <meta name="twitter:description" content="Contactez Nurset YAZGOREN, expert bâtiment indépendant dans l'Oise (60), le Val-d'Oise (95) et la Somme (80). Devis gratuit, réponse sous 24h. Beauvais, Cergy, Amiens et alentours.">
+  <meta name="twitter:description" content="Contactez Nurset YAZGOREN, expert bâtiment indépendant dans l'Oise (60), le Val-d'Oise (95) et la Somme (80). Devis gratuit, réponse sous 24h.">
   <meta name="viewport" content="width=device-width,initial-scale=1.0"/>
-  <!-- Leaflet carte -->
-  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin=""/>
-  <!-- Cloudflare Turnstile -->
+  <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" crossorigin=""/>
   <script src="https://challenges.cloudflare.com/turnstile/v0/api.js" async defer></script>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;0,600;0,700;1,300;1,400;1,500;1,600&family=Inter:wght@300;400;500;600&display=swap" rel="stylesheet">
-  <style>
-    :root {
-      --navy: #162538;
-      --navy-mid: #162538;
-      --navy-light: #162538;
-      --gold: #C9963C;
-      --gold-light: #E0B86A;
-      --gold-pale: #F2EBD9;
-      --stone: #F8F5F0;
-      --white: #FFFFFF;
-      --text: #3A3A3A;
-      --text-muted: #6B7A8A;
-      --border: #EDEAE3;
-      --shadow-sm: 0 1px 3px rgba(22,37,56,0.06);
-      --shadow-md: 0 4px 16px rgba(22,37,56,0.08), 0 2px 6px rgba(22,37,56,0.05);
-      --shadow-lg: 0 20px 48px rgba(22,37,56,0.10), 0 8px 20px rgba(22,37,56,0.06);
-      --shadow-gold: 0 8px 32px rgba(201,150,60,0.18);
-    }
-    *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-    html { scroll-behavior: smooth; }
-    body { font-family: 'Inter', sans-serif; background: var(--stone); color: var(--text); line-height: 1.65; overflow-x: hidden; -webkit-font-smoothing: antialiased; letter-spacing: -0.01em; }
-    h1,h2,h3,h4 { font-family: 'Cormorant Garamond', serif; line-height: 1.15; }
-    img { display: block; width: 100%; }
-    .container { width: min(1180px, 92%); margin: auto; }
-    section { padding: 7rem 0; }
-    .section-label { display: inline-flex; align-items: center; gap: .75rem; margin-bottom: 1rem; }
-    .section-label .line { width: 30px; height: 1px; background: var(--gold); }
-    .section-label span { font-size: .75rem; letter-spacing: .24em; color: var(--gold); text-transform: uppercase; font-weight: 600; }
-    .fade-up { opacity: 0; transform: translateY(28px); transition: opacity .7s ease, transform .7s ease; }
-    .fade-up.visible { opacity: 1; transform: translateY(0); }
-
-    header { position: fixed; top:0; left:0; width:100%; z-index:1000; background:rgba(22,37,56,0.97); backdrop-filter:blur(16px); border-bottom:1px solid rgba(201,150,60,0.15); transition:all .3s ease; }
-    .navbar { display:flex; justify-content:space-between; align-items:center; padding:1.1rem 0; }
-    .logo-link { text-decoration:none; display:flex; align-items:center; }
-    .logo-svg { height:52px; width:auto; }
-    .logo-svg-footer { height:64px; width:auto; margin-bottom:1rem; }
-    .nav-links { display:flex; gap:2.5rem; list-style:none; }
-    .nav-links a { text-decoration:none; color:rgba(255,255,255,0.78); font-size:.88rem; font-weight:500; letter-spacing:.04em; transition:color .25s; }
-    .nav-links a:hover { color:var(--gold-light); }
-    .btn-nav { display:inline-flex; align-items:center; gap:.5rem; padding:.75rem 1.5rem; background:var(--gold); color:var(--navy); font-family:'Inter',sans-serif; font-size:.85rem; font-weight:600; border:none; border-radius:6px; cursor:pointer; text-decoration:none; letter-spacing:.04em; transition:all .25s ease; }
-    .btn-nav:hover { background:var(--gold-light); transform:translateY(-1px); box-shadow:0 6px 20px rgba(201,150,60,.35); }
-    .menu-toggle { display:none; background:none; border:none; cursor:pointer; flex-direction:column; gap:5px; }
-    .menu-toggle span { display:block; width:24px; height:2px; background:var(--white); transition:all .3s; }
-    footer { background:var(--navy); padding:5rem 0 2.5rem; border-top:2px solid var(--gold); }
-    .footer-top { display:grid; grid-template-columns:1.5fr 1fr 1fr; gap:3rem; margin-bottom:3rem; }
-    .footer-brand p { margin-top:1rem; font-size:.86rem; color:rgba(255,255,255,0.45); max-width:280px; line-height:1.7; }
-    .footer-col h2 { font-family:'Inter',sans-serif; font-size:.75rem; font-weight:600; color:var(--gold); text-transform:uppercase; letter-spacing:.14em; margin-bottom:1.2rem; }
-    .footer-col ul { list-style:none; display:flex; flex-direction:column; gap:.6rem; }
-    .footer-col ul a { font-size:.87rem; color:rgba(255,255,255,0.5); text-decoration:none; transition:color .2s; }
-    .footer-col ul a:hover { color:rgba(255,255,255,0.9); }
-    .footer-bottom { padding-top:2rem; border-top:1px solid rgba(255,255,255,.08); display:flex; justify-content:space-between; align-items:center; }
-    .footer-bottom p { font-size:.8rem; color:rgba(255,255,255,.35); }
-    @media(max-width:860px){ .footer-top{grid-template-columns:1fr;} .footer-bottom{flex-direction:column;gap:.5rem;text-align:center;} }
-    @media(max-width:640px){ .nav-links{display:none;flex-direction:column;position:absolute;top:100%;left:0;width:100%;background:var(--navy);padding:1.5rem;gap:1.2rem;} .nav-links.open{display:flex;} .menu-toggle{display:flex;} .btn-nav.desktop{display:none;} }
-
-    .page-hero {
-      padding: 10rem 0 5rem;
-      background: var(--navy);
-      position: relative;
-      overflow: hidden;
-    }
-    .page-hero::before {
-      content:''; position:absolute; inset:0;
-      background: radial-gradient(ellipse at 80% 50%, rgba(201,150,60,0.07) 0%, transparent 60%);
-    }
-    .page-hero-inner { position:relative; z-index:1; }
-    .page-eyebrow { display:inline-flex; align-items:center; gap:.75rem; margin-bottom:1.5rem; }
-    .page-eyebrow .line { width:30px; height:1px; background:var(--gold); }
-    .page-eyebrow span { font-size:.72rem; letter-spacing:.3em; color:var(--gold); text-transform:uppercase; font-weight:500; }
-    .page-hero h1 { font-size:clamp(2.8rem,5vw,5rem); color:var(--white); font-weight:300; font-style:italic; letter-spacing:-.02em; }
-    .page-hero p { color:rgba(255,255,255,0.6); font-size:1.05rem; max-width:500px; margin-top:1.2rem; font-weight:300; }
-
-    .contact-main { background:var(--stone); }
-    .contact-main-grid { display:grid; grid-template-columns:1fr 1.4fr; gap:5rem; align-items:start; }
-
-    .contact-sidebar h2 { font-size:2rem; color:var(--navy); margin-bottom:.5rem; font-weight:400; }
-    .contact-sidebar > p { color:var(--text-muted); font-size:.95rem; margin-bottom:2.5rem; line-height:1.75; }
-
-    .contact-detail { display:flex; align-items:flex-start; gap:1rem; margin-bottom:1.5rem; }
-    .cd-icon { width:44px; height:44px; min-width:44px; border-radius:50%; background:var(--navy); display:flex; align-items:center; justify-content:center; font-size:1.1rem; }
-    .cd-text strong { display:block; font-size:.78rem; color:var(--text-muted); text-transform:uppercase; letter-spacing:.08em; margin-bottom:.2rem; }
-    .cd-text a, .cd-text span { color:var(--navy); font-weight:600; text-decoration:none; font-size:.98rem; }
-    .cd-text a:hover { color:var(--gold); }
-
-    .urgence-box { margin-top:2.5rem; padding:1.5rem; background:var(--navy); border-radius:2px; border-left:3px solid var(--gold); }
-    .urgence-box p { font-size:.88rem; color:rgba(255,255,255,.7); line-height:1.7; }
-    .urgence-box strong { color:var(--gold-light); }
-
-    .contact-form-box { background:var(--white); padding:3.5rem; border-radius:2px; box-shadow:var(--shadow-lg); border:1px solid var(--border); border-top:3px solid var(--gold); }
-    .contact-form-box h3 { font-size:1.9rem; color:var(--navy); margin-bottom:.4rem; font-weight:400; }
-    .contact-form-box .subtitle { color:var(--text-muted); font-size:.87rem; margin-bottom:2rem; }
-    .form-row { display:grid; grid-template-columns:1fr 1fr; gap:1rem; }
-    .form-field { margin-bottom:1rem; display:flex; flex-direction:column; gap:.4rem; }
-    .form-field label { font-size:.76rem; font-weight:600; color:var(--navy); letter-spacing:.06em; text-transform:uppercase; }
-    .form-field input, .form-field select, .form-field textarea { padding:.9rem 1rem; border:1px solid var(--border); border-radius:2px; font-family:'Inter',sans-serif; font-size:.93rem; color:var(--text); background:var(--stone); outline:none; transition:border-color .25s; width:100%; }
-    .form-field input:focus, .form-field select:focus, .form-field textarea:focus { border-color:var(--gold); background:var(--white); }
-    .form-field textarea { resize:vertical; min-height:130px; }
-    .btn-submit { width:100%; padding:1.1rem; background:var(--navy); color:var(--white); border:none; border-radius:2px; font-family:'Inter',sans-serif; font-size:.93rem; font-weight:600; cursor:pointer; letter-spacing:.06em; text-transform:uppercase; transition:all .25s; display:flex; align-items:center; justify-content:center; gap:.5rem; }
-    .btn-submit:hover { background:var(--gold); color:var(--navy); box-shadow:var(--shadow-gold); transform:translateY(-1px); }
-
-    @media(max-width:860px){ .contact-main-grid{grid-template-columns:1fr;} .form-row{grid-template-columns:1fr;} }
-
-    /* ─── CARTE LEAFLET ─── */
-    #map {
-      width: 100%;
-      height: 340px;
-      min-height: 340px;
-      border-radius: 2px;
-      border: 1px solid var(--border);
-      margin-top: 2rem;
-      z-index: 1;
-      display: block;
-    }
-    .leaflet-popup-content-wrapper {
-      border-radius: 4px !important;
-      border-top: 3px solid var(--gold) !important;
-      box-shadow: 0 8px 24px rgba(22,37,56,0.15) !important;
-    }
-    .leaflet-popup-content { font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text); }
-    .leaflet-popup-content strong { color: var(--navy); font-size: 0.9rem; }
-
-    /* ─── FEEDBACK FORMULAIRE ─── */
-    .form-feedback {
-      display: none;
-      padding: 1rem 1.2rem;
-      border-radius: 4px;
-      font-size: 0.88rem;
-      font-weight: 500;
-      margin-top: 0.8rem;
-      text-align: center;
-    }
-    .form-feedback.success { background: #ecfdf5; color: #065f46; border: 1px solid #6ee7b7; }
-    .form-feedback.error   { background: #fef2f2; color: #991b1b; border: 1px solid #fca5a5; }
-    .btn-submit:disabled   { opacity: 0.65; cursor: not-allowed; transform: none !important; }
-
-    .logo-img-real { height: 56px; width: auto; display: block; object-fit: contain; }
-    .footer-logo-crop { width:220px; height:140px; overflow:hidden; margin-bottom:1rem; }
-    .logo-img-footer-real { width:283px; height:auto; display:block; object-fit:contain; margin-left:-33px; margin-top:-66px; }
-
-    @media(max-width:640px){
-      .logo-img-real { height:48px; }
-      .footer-logo-crop { width:190px; height:121px; }
-      .logo-img-footer-real { width:245px; margin-left:-29px; margin-top:-57px; }
-    }
-
-    /* ─── SOCIAL LINKS ─── */
-    .footer-social { display:flex; gap:.75rem; margin-top:1.4rem; }
-    .footer-social a { width:38px; height:38px; border-radius:50%; display:flex; align-items:center; justify-content:center; border:1px solid rgba(201,150,60,0.3); background:rgba(255,255,255,0.04); transition:all .25s ease; text-decoration:none; }
-    .footer-social a:hover { background:var(--gold); border-color:var(--gold); transform:translateY(-2px); box-shadow:0 6px 16px rgba(201,150,60,.35); }
-    .footer-social a svg { width:17px; height:17px; fill:rgba(255,255,255,0.55); transition:fill .25s ease; }
-    .footer-social a:hover svg { fill:var(--navy); }
-
-  </style>
+  <link rel="stylesheet" href="css/style.css">
+  <link rel="stylesheet" href="css/contact.css">
 </head>
 <body>
   <header>
@@ -210,39 +55,47 @@
     </div>
   </section>
 
-  <section class="contact-main">
+  <section class="contact-main-section">
     <div class="container">
       <div class="contact-main-grid">
-        <div class="contact-sidebar fade-up">
+
+        <!-- ── COLONNE INFO ── -->
+        <div class="contact-info-col fade-up">
+          <div class="section-label">
+            <div class="line"></div>
+            <span>Coordonnées</span>
+          </div>
           <h2>Coordonnées directes</h2>
           <p>Je préfère le contact direct. Appelez-moi ou écrivez-moi — vous parlez à Nurset, pas à un secrétariat.</p>
 
-          <div class="contact-detail">
-            <div class="cd-icon">📞</div>
-            <div class="cd-text">
-              <strong>Téléphone</strong>
-              <a href="tel:+33600000000">+33 6 00 00 00 00</a>
+          <div class="contact-details">
+            <div class="contact-detail">
+              <div class="cd-icon">📞</div>
+              <div class="cd-text">
+                <strong>Téléphone</strong>
+                <a href="tel:+33600000000">+33 6 00 00 00 00</a>
+              </div>
             </div>
-          </div>
-          <div class="contact-detail">
-            <div class="cd-icon">✉️</div>
-            <div class="cd-text">
-              <strong>Email</strong>
-              <a href="mailto:contact@yazgoren-expert.fr">contact@yazgoren-expert.fr</a>
+            <div class="contact-detail">
+              <div class="cd-icon">✉️</div>
+              <div class="cd-text">
+                <strong>Email</strong>
+                <a href="mailto:contact@yazgoren-expert.fr">contact@yazgoren-expert.fr</a>
+              </div>
             </div>
-          </div>
-          <div class="contact-detail">
-            <div class="cd-icon">📍</div>
-            <div class="cd-text">
-              <strong>Zone d'intervention</strong>
-              <span>Île-de-France & régions limitrophes</span>
+            <div class="contact-detail">
+              <div class="cd-icon">📍</div>
+              <div class="cd-text">
+                <strong>Zone d'intervention</strong>
+                <span>Oise, Val-d'Oise, Somme & limitrophes</span>
+              </div>
             </div>
-          </div>
-          <div class="contact-detail">
-            <div class="cd-icon">🕐</div>
-            <div class="cd-text">
-              <strong>Disponibilité</strong>
-              <span>Lun.–Ven. 8h–19h</span>
+            <div class="contact-detail">
+              <div class="cd-icon">🕐</div>
+              <div class="cd-text">
+                <strong>Disponibilité</strong>
+                <span>Lun.–Ven. 8h–19h</span>
+              </div>
             </div>
           </div>
 
@@ -252,57 +105,60 @@
           </div>
         </div>
 
+        <!-- ── FORMULAIRE ── -->
         <div class="contact-form-box fade-up">
           <h3>Demande de rappel</h3>
           <p class="subtitle">Gratuit · Sans engagement · Réponse sous 24h</p>
 
           <form id="contactForm" action="send-mail.php" method="POST" novalidate>
-          <div class="form-row">
-            <div class="form-field"><label>Prénom</label><input type="text" name="prenom" placeholder="Jean" required></div>
-            <div class="form-field"><label>Nom</label><input type="text" name="nom" placeholder="Dupont" required></div>
-          </div>
-          <div class="form-row">
-            <div class="form-field"><label>Téléphone</label><input type="tel" name="telephone" placeholder="+33 6 00 00 00 00"></div>
-            <div class="form-field"><label>Email</label><input type="email" name="email" placeholder="jean@email.fr"></div>
-          </div>
-          <div class="form-field">
-            <label>Type d'expertise</label>
-            <select name="type_expertise" required>
-              <option value="">Sélectionnez...</option>
-              <option>Malfaçons / Désordres</option>
-              <option>Fissures / Pathologies</option>
-              <option>Réception de chantier / VEFA</option>
-              <option>Sinistre / Contre-expertise</option>
-              <option>Avant achat immobilier</option>
-              <option>Suivi de travaux</option>
-              <option>Expertise judiciaire</option>
-              <option>Autre</option>
-            </select>
-          </div>
-          <div class="form-row">
-            <div class="form-field"><label>Adresse du bien</label><input type="text" name="adresse_bien" placeholder="12 rue des Lilas, 75015 Paris"></div>
-            <div class="form-field"><label>Superficie estimée</label><input type="text" name="superficie" placeholder="ex: 85 m²"></div>
-          </div>
-          <div class="form-field">
-            <label>Description du problème</label>
-            <textarea name="description" placeholder="Décrivez brièvement votre situation, les désordres constatés, le contexte..." required></textarea>
-          </div>
+            <div class="form-row">
+              <div class="form-field"><label>Prénom</label><input type="text" name="prenom" placeholder="Jean" required></div>
+              <div class="form-field"><label>Nom</label><input type="text" name="nom" placeholder="Dupont" required></div>
+            </div>
+            <div class="form-row">
+              <div class="form-field"><label>Téléphone</label><input type="tel" name="telephone" placeholder="+33 6 00 00 00 00"></div>
+              <div class="form-field"><label>Email</label><input type="email" name="email" placeholder="jean@email.fr"></div>
+            </div>
+            <div class="form-field">
+              <label>Type d'expertise</label>
+              <select name="type_expertise" required>
+                <option value="">Sélectionnez...</option>
+                <option>Malfaçons / Désordres</option>
+                <option>Fissures / Pathologies</option>
+                <option>Réception de chantier / VEFA</option>
+                <option>Sinistre / Contre-expertise</option>
+                <option>Avant achat immobilier</option>
+                <option>Suivi de travaux</option>
+                <option>Expertise judiciaire</option>
+                <option>Autre</option>
+              </select>
+            </div>
+            <div class="form-row">
+              <div class="form-field"><label>Adresse du bien</label><input type="text" name="adresse_bien" placeholder="12 rue des Lilas, 75015 Paris"></div>
+              <div class="form-field"><label>Superficie estimée</label><input type="text" name="superficie" placeholder="ex: 85 m²"></div>
+            </div>
+            <div class="form-field">
+              <label>Description du problème</label>
+              <textarea name="description" placeholder="Décrivez brièvement votre situation, les désordres constatés, le contexte..." required></textarea>
+            </div>
 
-          <!-- Cloudflare Turnstile — remplacer data-sitekey par votre clé publique -->
-          <div class="cf-turnstile" data-sitekey="VOTRE_CLE_PUBLIQUE_TURNSTILE_ICI" style="margin:1rem 0;"></div>
+            <!-- Cloudflare Turnstile — décommentez quand vous avez votre clé publique
+            <div class="cf-turnstile" data-sitekey="VOTRE_CLE_PUBLIQUE_TURNSTILE_ICI" style="margin:1rem 0;"></div>
+            -->
+            <!-- Champ caché temporaire pour permettre l'envoi sans Turnstile -->
+            <input type="hidden" name="cf-turnstile-response" value="TURNSTILE_DISABLED">
 
-          <button type="submit" class="btn-submit" id="btnSubmit">📩 Envoyer ma demande</button>
-          <div class="form-feedback" id="formFeedback"></div>
+            <button type="submit" class="btn-submit" id="btnSubmit">📩 Envoyer ma demande</button>
+            <div class="form-feedback" id="formFeedback"></div>
           </form>
         </div>
+
       </div>
     </div>
   </section>
 
-  </section>
-
   <!-- ─── CARTE ZONE D'INTERVENTION ─── -->
-  <section style="background:var(--stone);padding:4rem 0;border-top:1px solid var(--border);">
+  <section class="map-section">
     <div class="container">
       <div style="text-align:center;margin-bottom:2rem;">
         <div class="section-label" style="justify-content:center;">
@@ -314,7 +170,7 @@
         </h2>
         <p style="color:var(--text-muted);font-size:.92rem;margin-top:.5rem;">Oise (60) · Val-d'Oise (95) · Somme (80) — et départements limitrophes sur demande</p>
       </div>
-      <div id="map"></div>
+      <div id="map" style="width:100%;height:340px;min-height:340px;display:block;"></div>
     </div>
   </section>
 
@@ -341,10 +197,10 @@
         <div class="footer-col">
           <h2>Services</h2>
           <ul>
-            <li><a href="index.html#services">Malfaçons & Désordres</a></li>
-            <li><a href="index.html#services">Fissures & Pathologies</a></li>
+            <li><a href="index.html#services">Malfaçons &amp; Désordres</a></li>
+            <li><a href="index.html#services">Fissures &amp; Pathologies</a></li>
             <li><a href="index.html#services">Réception de chantier</a></li>
-            <li><a href="index.html#services">Sinistres & Assurances</a></li>
+            <li><a href="index.html#services">Sinistres &amp; Assurances</a></li>
             <li><a href="index.html#services">Avant achat immobilier</a></li>
           </ul>
         </div>
@@ -360,17 +216,24 @@
         </div>
       </div>
       <div class="footer-bottom">
-        <p>© 2026 Nurset YAZGOREN — Expert Bâtiment Indépendant. Tous droits réservés. · <a href="mentions-legales.html" style="color:rgba(255,255,255,0.4);text-decoration:none;">Mentions légales</a></p>
+        <p>© 2025 Nurset YAZGÖREN — Expert Bâtiment. Tous droits réservés.</p>
         <p>RC Pro assurée · Expert agréé Cour d'Appel · SIRET : XXX XXX XXX XXXXX</p>
       </div>
     </div>
   </footer>
+
+  <div class="fab-mobile-bar">
+    <a href="tel:+33600000000" class="fab-mobile-call">📞 Appeler</a>
+    <a href="https://wa.me/33600000000" class="fab-mobile-whatsapp">💬 WhatsApp</a>
+  </div>
+
   <script>
-        const menuToggle = document.getElementById('menuToggle');
-    const navLinks = document.getElementById('navLinks');
+    // ─── MENU MOBILE ─────────────────────────────────────────────
+    const menuToggle = document.getElementById('menuToggle');
+    const navLinks   = document.getElementById('navLinks');
 
     if (menuToggle && navLinks) {
-      menuToggle.addEventListener('click', (e) => {
+      menuToggle.addEventListener('click', function(e) {
         e.stopPropagation();
         navLinks.classList.toggle('open');
         const spans = menuToggle.querySelectorAll('span');
@@ -384,88 +247,68 @@
           spans[2].style.cssText = '';
         }
       });
-      navLinks.querySelectorAll('a').forEach(a => {
-        a.addEventListener('click', () => {
+      navLinks.querySelectorAll('a').forEach(function(a) {
+        a.addEventListener('click', function() {
           navLinks.classList.remove('open');
-          menuToggle.querySelectorAll('span').forEach(s => s.style.cssText = '');
+          menuToggle.querySelectorAll('span').forEach(function(s) { s.style.cssText = ''; });
         });
       });
-      document.addEventListener('click', (e) => {
+      document.addEventListener('click', function(e) {
         if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
           navLinks.classList.remove('open');
-          menuToggle.querySelectorAll('span').forEach(s => s.style.cssText = '');
+          menuToggle.querySelectorAll('span').forEach(function(s) { s.style.cssText = ''; });
         }
       });
-    } else {
-          spans[0].style.cssText = '';
-          spans[1].style.cssText = '';
-          spans[2].style.cssText = '';
-        }
-      
+    }
 
-      // Fermer au clic sur un lien
-      navLinks.querySelectorAll('a').forEach(a => {
-        a.addEventListener('click', () => {
-          navLinks.classList.remove('open');
-          menuToggle.querySelectorAll('span').forEach(s => s.style.cssText = '');
-        });
+    // ─── FADE IN ──────────────────────────────────────────────────
+    const observer = new IntersectionObserver(function(entries) {
+      entries.forEach(function(e) {
+        if (e.isIntersecting) { e.target.classList.add('visible'); observer.unobserve(e.target); }
       });
-
-      // Fermer au clic en dehors
-      document.addEventListener('click', (e) => {
-        if (!menuToggle.contains(e.target) && !navLinks.contains(e.target)) {
-          navLinks.classList.remove('open');
-          menuToggle.querySelectorAll('span').forEach(s => s.style.cssText = '');
-        }
-      });
-    
-    const observer = new IntersectionObserver(entries => {
-      entries.forEach(e => { if(e.isIntersecting){ e.target.classList.add('visible'); observer.unobserve(e.target); } });
     }, { threshold: 0.1 });
-    document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
+    document.querySelectorAll('.fade-up').forEach(function(el) { observer.observe(el); });
+
+    // ─── HEADER SCROLL ───────────────────────────────────────────
     const header = document.querySelector('header');
-    window.addEventListener('scroll', () => {
+    window.addEventListener('scroll', function() {
       header.style.background = window.scrollY > 60 ? 'rgba(22,37,56,0.99)' : 'rgba(22,37,56,0.97)';
     });
   </script>
 
   <!-- Leaflet JS -->
-  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV/XN/WLEo=" crossorigin=""></script>
+  <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" crossorigin=""></script>
   <script>
     // ─── CARTE LEAFLET ───────────────────────────────────────────
     window.addEventListener('load', function() {
-      const mapEl = document.getElementById('map');
-      if (!mapEl) return;
+      var mapEl = document.getElementById('map');
+      if (!mapEl) { console.error('[Carte] #map introuvable dans le DOM'); return; }
+      if (typeof L === 'undefined') { console.error('[Carte] Leaflet non chargé'); return; }
 
-      const map = L.map('map', {
-        center: [49.35, 2.45],
-        zoom: 8,
-        scrollWheelZoom: false
-      });
+      mapEl.style.height    = '340px';
+      mapEl.style.minHeight = '340px';
+      mapEl.style.display   = 'block';
+
+      var map = L.map('map', { center: [49.35, 2.45], zoom: 8, scrollWheelZoom: false });
 
       L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
         attribution: '© <a href="https://www.openstreetmap.org/copyright">OpenStreetMap</a>',
         maxZoom: 13
       }).addTo(map);
 
-      setTimeout(() => map.invalidateSize(), 300);
+      setTimeout(function() { map.invalidateSize(); }, 100);
+      setTimeout(function() { map.invalidateSize(); }, 500);
+      setTimeout(function() { map.invalidateSize(); }, 1200);
 
-      const creerIcone = () => L.divIcon({
-        className: '',
-        iconSize: [30, 30],
-        iconAnchor: [15, 30],
-        popupAnchor: [0, -32],
-        html: `<div style="
-          width:30px; height:30px;
-          background:#162538;
-          border:2.5px solid #C9963C;
-          border-radius:50% 50% 50% 0;
-          transform:rotate(-45deg);
-          box-shadow:0 4px 12px rgba(22,37,56,0.35);
-        "></div>`
-      });
+      function creerIcone() {
+        return L.divIcon({
+          className: '',
+          iconSize: [30, 30], iconAnchor: [15, 30], popupAnchor: [0, -32],
+          html: '<div style="width:30px;height:30px;background:#162538;border:2.5px solid #C9963C;border-radius:50% 50% 50% 0;transform:rotate(-45deg);box-shadow:0 4px 12px rgba(22,37,56,0.35);"></div>'
+        });
+      }
 
-      const villes = [
+      var villes = [
         { lat: 49.4303, lng: 2.0818, nom: 'Beauvais',       dept: 'Oise (60)' },
         { lat: 49.4150, lng: 2.8243, nom: 'Compiègne',      dept: 'Oise (60)' },
         { lat: 49.2061, lng: 2.5863, nom: 'Senlis',         dept: 'Oise (60)' },
@@ -480,35 +323,28 @@
         { lat: 49.9296, lng: 2.9326, nom: 'Péronne',        dept: 'Somme (80)' },
       ];
 
-      villes.forEach(v => {
+      villes.forEach(function(v) {
         L.marker([v.lat, v.lng], { icon: creerIcone() })
           .addTo(map)
-          .bindPopup(`<strong>${v.nom}</strong><br><span style="color:#5A6370">${v.dept}</span>`);
+          .bindPopup('<strong>' + v.nom + '</strong><br><span style="color:#5A6370">' + v.dept + '</span>');
       });
     });
 
     // ─── FORMULAIRE AJAX ──────────────────────────────────────────
-    const form       = document.getElementById('contactForm');
-    const btn        = document.getElementById('btnSubmit');
-    const feedback   = document.getElementById('formFeedback');
+    var form     = document.getElementById('contactForm');
+    var btn      = document.getElementById('btnSubmit');
+    var feedback = document.getElementById('formFeedback');
 
     if (form) {
-      form.addEventListener('submit', async (e) => {
+      form.addEventListener('submit', async function(e) {
         e.preventDefault();
-
-        btn.disabled = true;
+        btn.disabled    = true;
         btn.textContent = '⏳ Envoi en cours…';
         feedback.style.display = 'none';
-        feedback.className = 'form-feedback';
-
+        feedback.className     = 'form-feedback';
         try {
-          const reponse = await fetch('send-mail.php', {
-            method: 'POST',
-            body: new FormData(form),
-          });
-
-          const data = await reponse.json();
-
+          const reponse = await fetch('send-mail.php', { method: 'POST', body: new FormData(form) });
+          const data    = await reponse.json();
           feedback.style.display = 'block';
           if (data.success) {
             feedback.classList.add('success');
@@ -518,14 +354,14 @@
           } else {
             feedback.classList.add('error');
             feedback.textContent = '⚠️ ' + (data.message || 'Une erreur est survenue.');
-            btn.disabled = false;
+            btn.disabled  = false;
             btn.innerHTML = '📩 Envoyer ma demande';
           }
         } catch (err) {
           feedback.style.display = 'block';
           feedback.classList.add('error');
           feedback.textContent = '⚠️ Erreur réseau. Veuillez réessayer ou appeler directement.';
-          btn.disabled = false;
+          btn.disabled  = false;
           btn.innerHTML = '📩 Envoyer ma demande';
         }
       });

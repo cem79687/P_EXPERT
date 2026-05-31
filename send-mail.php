@@ -90,37 +90,47 @@ if (!empty($erreurs)) {
 }
 
 // ── 7. Vérification Cloudflare Turnstile ─────
-function verifierTurnstile(string $token, string $secret, string $ip): bool {
-    $ch = curl_init('https://challenges.cloudflare.com/turnstile/v0/siteverify');
-    curl_setopt_array($ch, [
-        CURLOPT_RETURNTRANSFER => true,
-        CURLOPT_POST           => true,
-        CURLOPT_POSTFIELDS     => http_build_query([
-            'secret'   => $secret,
-            'response' => $token,
-            'remoteip' => $ip,
-        ]),
-        CURLOPT_TIMEOUT        => 10,
-        CURLOPT_SSL_VERIFYPEER => true,
-    ]);
-    $reponse = curl_exec($ch);
-    $errCurl = curl_errno($ch);
-    curl_close($ch);
+// ⚠️  TEMPORAIRE : vérification désactivée tant que les clés ne sont pas configurées.
+// Quand vos clés sont prêtes :
+//   1. Remplacez CF_TURNSTILE_SECRET par votre vraie clé secrète
+//   2. Décommentez le widget dans contact.html
+//   3. Supprimez le bloc if/bypass ci-dessous
 
-    if ($errCurl || !$reponse) return false;
+$turnstileBypass = ($cfToken === 'TURNSTILE_DISABLED' && CF_TURNSTILE_SECRET === 'VOTRE_CLE_SECRETE_TURNSTILE_ICI');
 
-    $data = json_decode($reponse, true);
-    return isset($data['success']) && $data['success'] === true;
-}
+if (!$turnstileBypass) {
+  function verifierTurnstile(string $token, string $secret, string $ip): bool {
+      $ch = curl_init('https://challenges.cloudflare.com/turnstile/v0/siteverify');
+      curl_setopt_array($ch, [
+          CURLOPT_RETURNTRANSFER => true,
+          CURLOPT_POST           => true,
+          CURLOPT_POSTFIELDS     => http_build_query([
+              'secret'   => $secret,
+              'response' => $token,
+              'remoteip' => $ip,
+          ]),
+          CURLOPT_TIMEOUT        => 10,
+          CURLOPT_SSL_VERIFYPEER => true,
+      ]);
+      $reponse = curl_exec($ch);
+      $errCurl = curl_errno($ch);
+      curl_close($ch);
+      if ($errCurl || !$reponse) return false;
+      $data = json_decode($reponse, true);
+      return isset($data['success']) && $data['success'] === true;
+  }
 
-$ip = $_SERVER['HTTP_CF_CONNECTING_IP']  // IP réelle via Cloudflare
-   ?? $_SERVER['HTTP_X_FORWARDED_FOR']
-   ?? $_SERVER['REMOTE_ADDR']
-   ?? '';
+  $ip = $_SERVER['HTTP_CF_CONNECTING_IP']
+     ?? $_SERVER['HTTP_X_FORWARDED_FOR']
+     ?? $_SERVER['REMOTE_ADDR']
+     ?? '';
 
-if (!verifierTurnstile($cfToken, CF_TURNSTILE_SECRET, $ip)) {
-    http_response_code(403);
-    exit(json_encode(['success' => false, 'message' => 'Vérification anti-robot échouée. Veuillez réessayer.']));
+  if (!verifierTurnstile($cfToken, CF_TURNSTILE_SECRET, $ip)) {
+      http_response_code(403);
+      exit(json_encode(['success' => false, 'message' => 'Vérification anti-robot échouée. Veuillez réessayer.']));
+  }
+} else {
+  $ip = $_SERVER['REMOTE_ADDR'] ?? '';
 }
 
 // ── 8. Protection anti-injection d'en-têtes ──

@@ -1,0 +1,111 @@
+/* ══════════════════════════════════════════════════════════════
+   contact.css — Styles spécifiques à la page contact
+   ══════════════════════════════════════════════════════════════ */
+
+/* ─── HERO CONTACT ─── */
+.page-hero {
+  background: var(--navy);
+  padding: 10rem 0 5rem;
+  position: relative;
+  overflow: hidden;
+}
+.page-hero::before {
+  content: '';
+  position: absolute; inset: 0;
+  background: radial-gradient(ellipse at 70% 50%, rgba(201,150,60,0.07) 0%, transparent 65%);
+  pointer-events: none;
+}
+.page-hero-inner { position: relative; z-index: 1; }
+.page-eyebrow { display: inline-flex; align-items: center; gap: 0.75rem; margin-bottom: 1.5rem; }
+.page-eyebrow .line { width: 30px; height: 1px; background: var(--gold); }
+.page-eyebrow span { font-size: 0.72rem; letter-spacing: 0.3em; color: var(--gold); text-transform: uppercase; font-weight: 500; }
+.page-hero h1 {
+  font-size: clamp(2.8rem, 5vw, 5rem);
+  color: var(--white); font-weight: 400;
+  font-style: italic; letter-spacing: -0.02em; line-height: 1.08;
+  margin-top: 0.8rem;
+}
+.page-hero h1 em { font-style: normal; color: var(--gold-light); }
+.page-hero p { font-size: 1rem; color: rgba(255,255,255,0.6); max-width: 500px; margin-top: 1.2rem; line-height: 1.75; }
+
+/* ─── SECTION PRINCIPALE ─── */
+.contact-main-section {
+  background: var(--stone);
+  padding: 6rem 0;
+}
+.contact-main-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.35fr;
+  gap: 5rem;
+  align-items: start;
+}
+
+/* ─── COLONNE INFO ─── */
+.contact-info-col h2 {
+  font-size: clamp(1.8rem, 3vw, 2.8rem);
+  color: var(--navy); font-weight: 400;
+  letter-spacing: -0.02em; margin-top: 0.6rem; margin-bottom: 0.8rem;
+}
+.contact-info-col > p {
+  color: var(--text-muted); font-size: 0.95rem; line-height: 1.75; margin-bottom: 2.5rem;
+}
+.contact-details {
+  display: flex; flex-direction: column; gap: 1rem; margin-bottom: 2rem;
+}
+
+/* ─── URGENCE BOX ─── */
+.urgence-box {
+  background: var(--navy);
+  border: 1px solid rgba(201,150,60,0.25);
+  border-left: 4px solid var(--gold);
+  border-radius: 4px;
+  padding: 1.2rem 1.4rem;
+  margin-top: 1.5rem;
+}
+.urgence-box p {
+  font-size: 0.9rem;
+  color: var(--white);
+  line-height: 1.7;
+  margin: 0;
+  
+}
+.urgence-box strong {
+  color: var(--gold);
+  font-weight: 700;
+  display: block;
+  margin-bottom: 0.4rem;
+}
+
+/* ─── CARTE LEAFLET ─── */
+#map {
+  width: 100%;
+  height: 340px;
+  min-height: 340px;
+  border-radius: 2px;
+  border: 1px solid var(--border);
+  display: block;
+}
+.leaflet-popup-content-wrapper {
+  border-radius: 4px !important;
+  border-top: 3px solid var(--gold) !important;
+  box-shadow: 0 8px 24px rgba(22,37,56,0.15) !important;
+}
+.leaflet-popup-content { font-family: 'Inter', sans-serif; font-size: 0.85rem; color: var(--text); }
+.leaflet-popup-content strong { color: var(--navy); font-size: 0.9rem; }
+
+/* ─── SECTION CARTE ─── */
+.map-section {
+  background: var(--stone);
+  padding: 4rem 0;
+  border-top: 1px solid var(--border);
+}
+
+/* ─── RESPONSIVE ─── */
+@media (max-width: 860px) {
+  .contact-main-grid { grid-template-columns: 1fr; gap: 3rem; }
+}
+@media (max-width: 640px) {
+  .form-row { grid-template-columns: 1fr; }
+  #map { height: 260px; min-height: 260px; }
+  .contact-main-section { padding: 4rem 0; }
+}
