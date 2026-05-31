@@ -313,7 +313,7 @@
       position: absolute;
       right: 0;
       bottom: 7rem;
-      display: flex;
+      margin-top: 2px;
       flex-direction: column;
       gap: 0;
       z-index: 2;
@@ -1023,7 +1023,7 @@
 
       .services-grid { grid-template-columns: 1fr 1fr; }
 
-      .hero-stats { position: static; flex-direction: row; margin-top: 3rem; }
+      .hero-stats { position: static; flex-direction: row; margin-top: 3rem; width: 100%; }
 
       .stat-item { border-left: none; border-top: 2px solid var(--gold); }
 
